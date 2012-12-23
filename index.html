@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US" style="overflow-y: scroll;">
+<head>
+    <title>Password Generator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div id="wrapper">
+        <h1>Password Generator</h1>
+        
+        <p>
+            <input id="output" type="text"></input>
+            <input id="length" type="text" value="20" maxlength="3"></input>
+            <a id="generate_password" href="#" onclick="PasswordGenerator.Generate(); return false;">Generate</a>
+        </p>
+        
+        <p>
+            Strength: <span id="strength"></span>
+        </p>
+        
+        <fieldset>
+            <legend>Options:</legend>
+            
+            <input checked="checked" class="genOptions" type="checkbox" name="alphal">Lower-case (a, b, c ...)</input> <br />
+            <input checked="checked" class="genOptions" type="checkbox" name="alphau">Upper-case (A, B, C ...)</input> <br />
+            <input checked="checked" class="genOptions" type="checkbox" name="digits">Digits (0, 1, 2 ...)</input> <br />
+            <input class="genOptions" type="checkbox" name="minus">Minus (-)</input> <br />
+            <input class="genOptions" type="checkbox" name="uline">Underline (_)</input> <br />
+            <input class="genOptions" type="checkbox" name="space">Space ( )</input> <br />
+            <input class="genOptions" type="checkbox" name="special">Special (!, @, $ ...)</input> <br />
+            <input class="genOptions" type="checkbox" name="bracket">Brackets ([, {, < ...)</input>
+        </fieldset>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="PasswordGenerator.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
