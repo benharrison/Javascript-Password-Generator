@@ -1,40 +1,94 @@
 <!DOCTYPE html>
-<html lang="en-US" style="overflow-y: scroll;">
+<html lang="en-US">
 <head>
     <title>Password Generator</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap-theme.min.css" />
 </head>
 <body>
 
-    <div id="wrapper">
-        <h1>Password Generator</h1>
-        
-        <p>
-            <input id="output" type="text"></input>
-            <input id="length" type="text" value="20" maxlength="3"></input>
-            <a id="generate_password" href="#" onclick="PasswordGenerator.Generate(); return false;">Generate</a>
-        </p>
-        
-        <p>
-            Strength: <span id="strength"></span>
-        </p>
-        
-        <fieldset>
-            <legend>Options:</legend>
-            
-            <input checked="checked" class="genOptions" type="checkbox" name="alphal">Lower-case (a, b, c ...)</input> <br />
-            <input checked="checked" class="genOptions" type="checkbox" name="alphau">Upper-case (A, B, C ...)</input> <br />
-            <input checked="checked" class="genOptions" type="checkbox" name="digits">Digits (0, 1, 2 ...)</input> <br />
-            <input class="genOptions" type="checkbox" name="minus">Minus (-)</input> <br />
-            <input class="genOptions" type="checkbox" name="uline">Underline (_)</input> <br />
-            <input class="genOptions" type="checkbox" name="space">Space ( )</input> <br />
-            <input class="genOptions" type="checkbox" name="special">Special (!, @, $ ...)</input> <br />
-            <input class="genOptions" type="checkbox" name="bracket">Brackets ([, {, < ...)</input>
-        </fieldset>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="well">
+                    
+                    <p>
+                        <label for="length">Password Length</label>
+                        <input id="length" class="form-control" type="text" value="20" maxlength="3" style="width:100%;"></input>
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input checked="checked" class="genOptions" type="checkbox" name="alphal"></input>
+                                    Lower-case (a, b, c ...)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input checked="checked" class="genOptions" type="checkbox" name="alphau"></input>
+                                    Upper-case (A, B, C ...)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input checked="checked" class="genOptions" type="checkbox" name="digits"></input>
+                                    Digits (0, 1, 2 ...)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input class="genOptions" type="checkbox" name="minus"></input>
+                                    Minus (-)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="genOptions" type="checkbox" name="uline"></input>
+                                    Underline (_)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input class="genOptions" type="checkbox" name="space"></input>
+                                    Space ( )
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input class="genOptions" type="checkbox" name="special"></input>
+                                    Special (!, @, $ ...)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input class="genOptions" type="checkbox" name="bracket"></input>
+                                    Brackets ([, {, < ...)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a id="generate_password" class="btn btn-primary btn-block" href="#" onclick="PasswordGenerator.Generate(); return false;">Generate</a>
+                </div>
+                
+                <p>
+                    <textarea id="output" class="form-control" rows="3"></textarea>
+                </p>
+                
+                <p>
+                    Strength: <span id="strength"></span>
+                </p>
+            </div>
+        </div>
     </div>
     
     <!-- JavaScript -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="PasswordGenerator.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="PasswordGenerator.js"></script>
 </body>
 </html>
