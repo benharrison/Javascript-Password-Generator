@@ -115,7 +115,7 @@ window.PasswordGenerator = (function($){
                 tempString = tempString + chars[rand];
             }
             
-            $('input#output').val(tempString);
+            $('#output').val(tempString);
             $('#strength').html( checkStrength(tempString) );
         }
     }
