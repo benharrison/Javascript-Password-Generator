@@ -1,16 +1,12 @@
 window.PasswordGenerator = (function($){
     // private
-    var alpha = 'abcdefghijklmnopqrstuvwxyz';
-    var alphal  = alpha.split('');
-    var alphau  = alpha.toUpperCase().split('');
-    var digits  = ('0123456789').split('');
-    var minus   = ['-'];
-    var uline   = ['_'];
-    var space   = [' '];
-    var special = ('\'"!@#$%^&*()+=~:;|.,').split('');
-    var bracket = ('[]{}<>()').split('');
-    
-    var chars = [].concat(alphal, alphau, digits);
+    var _alpha              = 'abcdefghijklmnopqrstuvwxyz';
+    var _lowerCase          = _alpha.split('');
+    var _upperCase          = _alpha.toUpperCase().split('');
+    var _digits             = ('0123456789').split('');
+    var _specialCharacters  = ('-_\'"!@#$%^&*()+=~:;|.,').split('');
+    var _spaces             = [' '];
+    var _brackets           = ('[]{}<>()').split('');
     
     // Check strength
     var checkStrength = function(password) {
@@ -36,87 +32,64 @@ window.PasswordGenerator = (function($){
             strength++;
             
         // 2. upper and lowercase
-        for (var i = 0; i < alphal.length; i++) {
-            if ( password.indexOf(alphal[i]) > -1 )
-                hasLower = true;
-            if ( password.indexOf(alphau[i]) > -1 )
-                hasUpper = true;
+        for (var i = 0; i < _lowerCase.length; i++) {
+            if ( password.indexOf(_lowerCase[i]) > -1 ) hasLower = true;
+            if ( password.indexOf(_upperCase[i]) > -1 ) hasUpper = true;
         }
-        if ( hasLower && hasUpper )
-            strength++;
+        if ( hasLower && hasUpper ) strength++;
         
         // 3. digits
-        for (var i = 0; i < digits.length; i++) {
-            if ( password.indexOf(digits[i]) > -1 )
-                hasDigits = true;
+        for (var i = 0; i < _digits.length; i++) {
+            if ( password.indexOf(_digits[i]) > -1 ) hasDigits = true;
         }
-        if ( hasDigits )
-            strength++;
+        if ( hasDigits ) strength++;
             
         // 4. special
-        for (var i = 0; i < special.length; i++) {
-            if ( password.indexOf(special[i]) > -1 )
-                hasSpecial = true;
+        for (var i = 0; i < _specialCharacters.length; i++) {
+            if ( password.indexOf(_specialCharacters[i]) > -1 ) hasSpecial = true;
         }
-        if ( hasSpecial )
-            strength++;
+        if ( hasSpecial ) strength++;
         
         // 5. others
-        var others = minus.concat(uline, space, bracket);
+        var others = [].concat(_spaces, _brackets);
         for (var i = 0; i < others.length; i++) {
-            if ( password.indexOf(others[i]) > -1 )
-                hasOthers = true;
+            if ( password.indexOf(others[i]) > -1 ) hasOthers = true;
         }
-        if ( hasOthers)
-            strength++;
+        if ( hasOthers) strength++;
         
         return strength;
     }
     
-    // document ready
-    $(document).ready(function(){
-        // Checkboxes Click Event
-        $(".genOptions").bind("click", function(){
-            // build temp string of all checked options
-            var temp = "";
-            $.each( $(".genOptions"), function(){
-                if ( $(this).is(":checked") )
-                {
-                    temp += $(this).attr("name") + " ";
-                }
-            })
-            
-            // merge arrays
-            chars = [].concat(
-                            (temp.indexOf('alphal') > -1 ? alphal : []),
-                            (temp.indexOf('alphau') > -1 ? alphau : []),
-                            (temp.indexOf('digits') > -1 ? digits : []),
-                            (temp.indexOf('minus') > -1 ? minus : []),
-                            (temp.indexOf('uline') > -1 ? uline : []),
-                            (temp.indexOf('space') > -1 ? space : []),
-                            (temp.indexOf('special') > -1 ? special : []),
-                            (temp.indexOf('bracket') > -1 ? bracket : [])
-                        );
-                        
-            // (en/dis)able generate link
-            ( $.trim(temp) === '' ? $('#generate_password').hide() : $('#generate_password').show() );
-        });
-    });
-    
     // public
     return {
+        Length              : 20,
+        LowerCase           : false,
+        UpperCase           : false,
+        Digits              : false,
+        SpecialCharacters   : false,
+        Spaces              : false,
+        Brackets            : false,
         Generate: function() {
-            var tempString = '';
-            var l = parseInt($('#length').val());
+            var chars = [];
+            if (this.LowerCase) chars.push(_lowerCase);
+            if (this.UpperCase) chars.push(_upperCase);
+            if (this.Digits) chars.push(_digits);
+            if (this.SpecialCharacters) chars.push(_specialCharacters);
+            if (this.Spaces) chars.push(_spaces);
+            if (this.Brackets) chars.push(_brackets);
+            
+            var generatedPassword = '';
+            var l = this.Length;
             
             for (var i = 0; i < l; i++)
             {
-                var rand = Math.floor(Math.random() * chars.length);
-                tempString = tempString + chars[rand];
+                var rand1 = Math.floor(Math.random() * chars.length);
+                var rand2 = Math.floor(Math.random() * chars[rand1].length);
+                generatedPassword = generatedPassword + chars[rand1][rand2];
             }
             
-            $('#output').val(tempString);
-            $('#strength').html( checkStrength(tempString) );
+            $('#output').val(generatedPassword);
+            $('#strength').html( checkStrength(generatedPassword) );
         }
     }
 })(jQuery);
