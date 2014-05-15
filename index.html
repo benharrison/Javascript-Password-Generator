@@ -21,58 +21,46 @@
                         <div class="col-sm-6">
                             <div class="checkbox">
                                 <label>
-                                    <input checked="checked" class="genOptions" type="checkbox" name="alphal"></input>
+                                    <input checked="checked" class="genOptions" type="checkbox" name="LowerCase"></input>
                                     Lower-case (a, b, c ...)
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input checked="checked" class="genOptions" type="checkbox" name="alphau"></input>
+                                    <input checked="checked" class="genOptions" type="checkbox" name="UpperCase"></input>
                                     Upper-case (A, B, C ...)
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input checked="checked" class="genOptions" type="checkbox" name="digits"></input>
+                                    <input checked="checked" class="genOptions" type="checkbox" name="Digits"></input>
                                     Digits (0, 1, 2 ...)
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input class="genOptions" type="checkbox" name="minus"></input>
-                                    Minus (-)
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="checkbox">
                                 <label>
-                                    <input class="genOptions" type="checkbox" name="uline"></input>
-                                    Underline (_)
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input class="genOptions" type="checkbox" name="space"></input>
-                                    Space ( )
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input class="genOptions" type="checkbox" name="special"></input>
+                                    <input class="genOptions" type="checkbox" name="SpecialCharacters"></input>
                                     Special (!, @, $ ...)
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input class="genOptions" type="checkbox" name="bracket"></input>
+                                    <input class="genOptions" type="checkbox" name="Brackets"></input>
                                     Brackets ([, {, < ...)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input class="genOptions" type="checkbox" name="Spaces"></input>
+                                    Space ( )
                                 </label>
                             </div>
                         </div>
                     </div>
                     
-                    <a id="generate_password" class="btn btn-primary btn-block" href="#" onclick="PasswordGenerator.Generate(); return false;">Generate</a>
+                    <input type="button" class="btn btn-primary btn-block" onclick="PasswordGenerator.Generate();" value="Generate" />
                 </div>
                 
                 <p>
@@ -90,5 +78,24 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="PasswordGenerator.js"></script>
+    <script>
+        $(document).ready(function(){
+            SetOptions();
+            $(".genOptions").bind("click", SetOptions);
+            $('#length').on('keyup', function()
+            {
+                PasswordGenerator.Length =  parseInt($(this).val());
+            })
+        });
+        
+        function SetOptions()
+        {
+            $.each( $(".genOptions"), function(){
+                var isChecked = $(this).is(":checked");
+                var name = $(this).attr("name");
+                PasswordGenerator[name] = isChecked;
+            });
+        }
+    </script>
 </body>
 </html>
