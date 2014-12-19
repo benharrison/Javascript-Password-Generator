@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     
-                    <input type="button" class="btn btn-primary btn-block" onclick="PasswordGenerator.Generate();" value="Generate" />
+                    <input type="button" class="btn btn-primary btn-block" value="Generate" />
                 </div>
                 
                 <p>
@@ -80,22 +80,26 @@
     <script src="PasswordGenerator.js"></script>
     <script>
         $(document).ready(function(){
-            SetOptions();
-            $(".genOptions").bind("click", SetOptions);
-            $('#length').on('keyup', function()
-            {
-                PasswordGenerator.Length =  parseInt($(this).val());
-            })
+            $('input[type=button]').on('click', function(){
+                // read options
+                $.each( $(".genOptions"), function(){
+                    var name = $(this).attr("name");
+                    PasswordGenerator[name] = $(this).is(":checked");
+                });
+                
+                // get length
+                var length = parseInt($('#length').val());
+                
+                // generate
+                var password = PasswordGenerator.Generate(length);
+                var strength = PasswordGenerator.CheckStrength(password);
+                
+                // display output
+                $('#output').val(password);
+                $('#strength').html(strength);
+            });
         });
         
-        function SetOptions()
-        {
-            $.each( $(".genOptions"), function(){
-                var isChecked = $(this).is(":checked");
-                var name = $(this).attr("name");
-                PasswordGenerator[name] = isChecked;
-            });
-        }
     </script>
 </body>
 </html>
