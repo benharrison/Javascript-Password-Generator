@@ -40,11 +40,13 @@ window.PasswordGenerator = (function($){
     
     var generate = function(length) {
         var chars = [];
-        if (this.LowerCase) chars.push(_lowerCase);
-        if (this.UpperCase) chars.push(_upperCase);
+        
+        var alpha = _alpha.split('');
+        if (this.Spaces) alpha.push(' ');
+        if (this.LowerCase || this.UpperCase) chars.push(alpha);
+        
         if (this.Digits) chars.push(_digits);
         if (this.SpecialCharacters) chars.push(_specialCharacters);
-        if (this.Spaces) chars.push(_spaces);
         if (this.Brackets) chars.push(_brackets);
         
         var generatedPassword = '';
@@ -53,7 +55,11 @@ window.PasswordGenerator = (function($){
         {
             var rand1 = Math.floor(Math.random() * chars.length);
             var rand2 = Math.floor(Math.random() * chars[rand1].length);
-            generatedPassword = generatedPassword + chars[rand1][rand2];
+            
+            var character = chars[rand1][rand2]
+            if (this.UpperCase && Math.random() > 0.5) { character = character.toUpperCase(); }
+            
+            generatedPassword = generatedPassword + character;
         }
         
         return generatedPassword;
