@@ -11,12 +11,12 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="well">
-                    
+
                     <p>
                         <label for="length">Password Length</label>
                         <input id="length" class="form-control" type="text" value="20" maxlength="3" style="width:100%;"></input>
                     </p>
-                    
+
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="checkbox">
@@ -59,21 +59,21 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <input type="button" class="btn btn-primary btn-block" value="Generate" />
                 </div>
-                
+
                 <p>
                     <textarea id="output" class="form-control" rows="3"></textarea>
                 </p>
-                
+
                 <p>
                     Strength: <span id="strength"></span>
                 </p>
             </div>
         </div>
     </div>
-    
+
     <!-- JavaScript -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -82,24 +82,24 @@
         $(document).ready(function(){
             $('input[type=button]').on('click', function(){
                 // read options
+                var options = {
+                    length : parseInt($('#length').val())
+                };
                 $.each( $(".genOptions"), function(){
                     var name = $(this).attr("name");
-                    PasswordGenerator[name] = $(this).is(":checked");
+                    options[name.toLowerCase()] = $(this).is(":checked");
                 });
-                
-                // get length
-                var length = parseInt($('#length').val());
-                
+
                 // generate
-                var password = PasswordGenerator.Generate(length);
+                var password = PasswordGenerator.Generate(options);
                 var strength = PasswordGenerator.CheckStrength(password);
-                
+
                 // display output
                 $('#output').val(password);
                 $('#strength').html(strength);
             });
         });
-        
+
     </script>
 </body>
 </html>

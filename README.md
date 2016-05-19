@@ -1,6 +1,9 @@
 Javascript-Password-Generator
 =============================
 
+2016-05-19
+* API cleanup & refactoring. Generate() method now accepts an options object.
+
 2014-12-19
 * Removed dependency to jQuery; demo still uses jQuery though
 * optimized the CheckStrength method, and exposed it as public
